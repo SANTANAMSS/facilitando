@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+
+        .calculator {
+            margin-bottom: 20px;
+        }
+
+        .calculator h2 {
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #004494;
+        }
+
+        p {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora Financeira</h1>
+
+        <div class="calculator">
+            <h2>Juros Simples</h2>
+            <label for="capitalSimples">Capital (R$):</label>
+            <input type="number" id="capitalSimples" placeholder="Digite o capital">
+            <label for="taxaSimples">Taxa de Juros (% ao ano):</label>
+            <input type="number" id="taxaSimples" placeholder="Digite a taxa">
+            <label for="tempoSimples">Tempo (anos):</label>
+            <input type="number" id="tempoSimples" placeholder="Digite o tempo">
+            <button onclick="calcularJurosSimples()">Calcular Juros Simples</button>
+            <p id="resultadoSimples"></p>
+        </div>
+
+        <div class="calculator">
+            <h2>Juros Compostos</h2>
+            <label for="capitalComposto">Capital (R$):</label>
+            <input type="number" id="capitalComposto" placeholder="Digite o capital">
+            <label for="taxaComposto">Taxa de Juros (% ao ano):</label>
+            <input type="number" id="taxaComposto" placeholder="Digite a taxa">
+            <label for="tempoComposto">Tempo (anos):</label>
+            <input type="number" id="tempoComposto" placeholder="Digite o tempo">
+            <button onclick="calcularJurosCompostos()">Calcular Juros Compostos</button>
+            <p id="resultadoComposto"></p>
+        </div>
+
+        <div class="calculator">
+            <h2>Descontos</h2>
+            <label for="valorOriginal">Valor Original (R$):</label>
+            <input type="number" id="valorOriginal" placeholder="Digite o valor original">
+            <label for="percentualDesconto">Percentual de Desconto (%):</label>
+            <input type="number" id="percentualDesconto" placeholder="Digite o percentual">
+            <button onclick="calcularDesconto()">Calcular Desconto</button>
+            <p id="resultadoDesconto"></p>
+        </div>
+    </div>
+
+    <script>
+        function calcularJurosSimples() {
+            const capital = parseFloat(document.getElementById('capitalSimples').value);
+            const taxa = parseFloat(document.getElementById('taxaSimples').value);
+            const tempo = parseFloat(document.getElementById('tempoSimples').value);
+
+            const juros = (capital * (taxa / 100) * tempo).toFixed(2);
+            const montante = (capital + parseFloat(juros)).toFixed(2);
+
+            document.getElementById('resultadoSimples').innerText = `Juros: R$ ${juros}, Montante: R$ ${montante}`;
+        }
+
+        function calcularJurosCompostos() {
+            const capital = parseFloat(document.getElementById('capitalComposto').value);
+            const taxa = parseFloat(document.getElementById('taxaComposto').value);
+            const tempo = parseFloat(document.getElementById('tempoComposto').value);
+
+            const montante = (capital * Math.pow(1 + (taxa / 100), tempo)).toFixed(2);
+            const juros = (montante - capital).toFixed(2);
+
+            document.getElementById('resultadoComposto').innerText = `Juros: R$ ${juros}, Montante: R$ ${montante}`;
+        }
+
+        function calcularDesconto() {
+            const valorOriginal = parseFloat(document.getElementById('valorOriginal').value);
+            const percentualDesconto = parseFloat(document.getElementById('percentualDesconto').value);
+
+            const valorDesconto = (valorOriginal * (percentualDesconto / 100)).toFixed(2);
+            const valorFinal = (valorOriginal - valorDesconto).toFixed(2);
+
+            document.getElementById('resultadoDesconto').innerText = `Desconto: R$ ${valorDesconto}, Valor Final: R$ ${valorFinal}`;
+        }
+    </script>
+</body>
+</html>
